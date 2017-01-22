@@ -52,7 +52,10 @@ public class nameFlip{
         buffStr = sc.nextLine();
         
         // Only format names that are not in "lastname, first" format
-        if(!buffStr.contains(",")){
+        if(buffStr.contains(","))
+          pw.println(buffStr);
+        
+        else{
           
           //Reporting status
           System.out.println("Formatting name: " + buffStr);
