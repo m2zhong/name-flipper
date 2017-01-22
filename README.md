@@ -10,3 +10,7 @@ It then formats each line into (lastname, firstname) order, while skipping the n
 ```
 java nameFlip
 ```
+
+#Sample Files
+**names.txt**: a list of names in both (firstname lastname) and (lastname, firstname) format.
+**output.txt**: a list of formatted name in (lastname, firstname) form.
