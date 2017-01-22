@@ -1,0 +1,57 @@
+import java.io.*;
+import javax.swing.*;
+import org.apache.commons.io.FilenameUtils;
+import java.util.Scanner;
+
+public class nameFlip{
+  public static void main(String args[]){
+    JFileChooser fc = new JFileChooser();
+    File input, output;
+    String buffStr = "";
+    String lastName ="";
+    String[] strBuffArr;
+    
+    fc.showOpenDialog(null);
+    input = fc.getSelectedFile();
+    
+    System.out.println("Selected File type is " + FilenameUtils.getExtension(input.getAbsolutePath()));
+    if(FilenameUtils.getExtension(input.getAbsolutePath()) != "txt"){
+      System.err.print("Only .txt format is supported for now");
+    }
+    
+    try{
+      Scanner sc = new Scanner(input);
+      
+      System.out.println("Reading...");
+      while(sc.hasNextLine()){
+        buffStr = sc.nextLine();
+        
+        System.out.println("Formatting name: " + buffStr);
+        strBuffArr = buffStr.split(" ");
+        lastName = strBuffArr[strBuffArr.length-1]; // Storing last name
+        
+        /* Creaing output string array of equal size as input string */
+        String[] strOutArr = new String[strBuffArr.length];
+        
+        /* Storing Last name first. Added ',' for format */
+        strOutArr[0] = lastName + ',';
+        
+        /* Storing first and middle names (if any) */
+        for(int i = 0; i < strBuffArr.length-1; i++)
+          strOutArr[i+1] = strBuffArr[i];
+        
+        output = new File("output.txt");
+        PrintWriter pw = new PrintWriter(output);
+        
+        for(int i=0; i<strOutArr.length-1; i++)
+          pw.println(strOutArr[i] + ' ');
+        
+        pw.println(strOutArr[strOutArr.length-1]);
+        pw.close();
+        System.out.println("The file is stored at: " + output.getAbsolutePath());
+      }
+    }catch(Exception e){
+      System.out.println(e);
+    }
+  }
+}
